@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<item android:id="@+id/miComposetweet"
+          android:icon="@drawable/ic_action_composetweet"
+          android:title="@string/action_composetweet"
+          android:showAsAction="always" />
+
+</menu>

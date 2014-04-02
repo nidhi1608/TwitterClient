@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+	<string name="app_name">TwitterClient</string>
+    <string name="action_settings">Settings</string>
+    <string name="ivProfile">Profile</string>
+    <string name="reply">reply »</string>
+    <string name="reply_text">reply</string>
+    <string name="retweet_text">retweet</string>
+    <string name="favorite_text">favorite</string>
+    <string name="share_text">share</string>
+    <string name="action_composetweet">compose</string>
+    <string name="whats_happening">What\'s happening?</string>
+    <string name="miTweet">TWEET</string>
+    <string name="miCharacterCount">140</string>
+    <string name="title_activity_compose_tweet"></string>
+    <string name="title_activity_tweet_detail"></string>
+    <string name="tvRetweets"> RETWEETS</string>
+    <string name="tvFavourites"> FAVORITES</string>
+    <string name="tvWelcomeMessage">Hello. Welcome to Twitter Client.</string>
+    <string name="btnLogin">Sign In</string>
+    <string name="ivLogo">Twitter logo</string>
+
+</resources>
