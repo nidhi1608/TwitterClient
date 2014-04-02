@@ -1,9 +1,9 @@
-package com.example.twitterclient.activities.net;
+package com.example.twitterclient.net;
 
 import android.content.Context;
 
 import com.codepath.oauth.OAuthBaseClient;
-import com.example.twitterclient.activities.helpers.Constants;
+import com.example.twitterclient.helpers.Constants;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 

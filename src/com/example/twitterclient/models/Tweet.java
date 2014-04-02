@@ -1,4 +1,4 @@
-package com.example.twitterclient.activities.models;
+package com.example.twitterclient.models;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -19,7 +19,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
-import com.example.twitterclient.activities.helpers.Utils;
+import com.example.twitterclient.helpers.Utils;
 
 @Table(name = "Tweets")
 public class Tweet extends Model implements Serializable {

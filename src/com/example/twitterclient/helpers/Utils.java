@@ -1,4 +1,4 @@
-package com.example.twitterclient.activities.helpers;
+package com.example.twitterclient.helpers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

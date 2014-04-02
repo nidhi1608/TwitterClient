@@ -1,10 +1,10 @@
-package com.example.twitterclient.activities.helpers;
+package com.example.twitterclient.helpers;
 
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 
-import com.example.twitterclient.activities.models.Tweet;
+import com.example.twitterclient.models.Tweet;
 
 public class CustomDateComparator implements Comparator<Tweet> {
 

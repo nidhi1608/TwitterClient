@@ -1,4 +1,4 @@
-package com.example.twitterclient.activities.helpers;
+package com.example.twitterclient.helpers;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,9 +6,9 @@ import android.content.Intent;
 
 import com.example.twitterclient.R;
 import com.example.twitterclient.activities.ComposeTweetActivity;
-import com.example.twitterclient.activities.models.Tweet;
-import com.example.twitterclient.activities.models.User;
-import com.example.twitterclient.activities.net.TwitterClient;
+import com.example.twitterclient.models.Tweet;
+import com.example.twitterclient.models.User;
+import com.example.twitterclient.net.TwitterClient;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;

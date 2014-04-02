@@ -1,4 +1,4 @@
-package com.example.twitterclient.activities.helpers;
+package com.example.twitterclient.helpers;
 
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.TwitterApi;

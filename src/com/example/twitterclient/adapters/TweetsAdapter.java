@@ -1,4 +1,4 @@
-package com.example.twitterclient.activities.adapters;
+package com.example.twitterclient.adapters;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,12 +25,12 @@ import android.widget.TextView;
 
 import com.example.twitterclient.R;
 import com.example.twitterclient.activities.TweetDetailActivity;
-import com.example.twitterclient.activities.helpers.Async;
-import com.example.twitterclient.activities.helpers.Constants;
-import com.example.twitterclient.activities.helpers.TwitterClientApp;
-import com.example.twitterclient.activities.helpers.ViewHolder;
-import com.example.twitterclient.activities.models.Tweet;
-import com.example.twitterclient.activities.models.User;
+import com.example.twitterclient.helpers.Async;
+import com.example.twitterclient.helpers.Constants;
+import com.example.twitterclient.helpers.TwitterClientApp;
+import com.example.twitterclient.helpers.ViewHolder;
+import com.example.twitterclient.models.Tweet;
+import com.example.twitterclient.models.User;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 

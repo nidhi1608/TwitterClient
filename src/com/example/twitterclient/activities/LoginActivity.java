@@ -14,9 +14,9 @@ import android.view.WindowManager;
 
 import com.codepath.oauth.OAuthLoginActivity;
 import com.example.twitterclient.R;
-import com.example.twitterclient.activities.helpers.TwitterClientApp;
-import com.example.twitterclient.activities.models.User;
-import com.example.twitterclient.activities.net.TwitterClient;
+import com.example.twitterclient.helpers.TwitterClientApp;
+import com.example.twitterclient.models.User;
+import com.example.twitterclient.net.TwitterClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class LoginActivity extends OAuthLoginActivity<TwitterClient> {

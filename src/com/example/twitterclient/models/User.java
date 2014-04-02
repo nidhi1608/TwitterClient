@@ -1,4 +1,4 @@
-package com.example.twitterclient.activities.models;
+package com.example.twitterclient.models;
 
 import java.io.Serializable;
 import java.util.List;
