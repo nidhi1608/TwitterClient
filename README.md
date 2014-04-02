@@ -4,8 +4,7 @@ TwitterClient
 Twitter client using twitter REST API.
 
 
-![alt tag](https://raw.githubusercontent.com/nidhi1608/TwitterClient/master/Screenshots/Screenshot_2014-04-01-18-05-11
-.png)
+![alt tag](https://raw.githubusercontent.com/nidhi1608/TwitterClient/master/Screenshots/Screenshot_2014-04-01-18-05-11.png)
 
 
 ![alt tag](https://raw.githubusercontent.com/nidhi1608/TwitterClient/master/Screenshots/Screenshot_2014-04-01-18-05-27.png)
@@ -56,3 +55,6 @@ Twitter client using twitter REST API.
 18.  User can see an embedded media (image) within tweet detail view
 19.  User can share a tweet
 20.  User can "retweet" from the list as well as from detail view
+
+
+Total time spent: 30 Hours
