@@ -1,5 +1,9 @@
 package com.example.twitterclient.net;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLEncoder;
+
 import android.content.Context;
 
 import com.codepath.oauth.OAuthBaseClient;
@@ -17,10 +21,21 @@ public class TwitterClient extends OAuthBaseClient {
 		return (TwitterClient) OAuthBaseClient.getInstance(TwitterClient.class, context);
 	}
 
-	public void getHomeTimeline(long maxId, long sinceId, AsyncHttpResponseHandler handler) {
-		String apiUrl = getApiUrl(Constants.REST_GET_HOMETIMELINE_URL);
+	public void getTimeline(String query, long userId, String timelineType, long maxId, long sinceId, AsyncHttpResponseHandler handler) {
+		String apiUrl;
+		if (query != null && query.length() > 0) {
+			apiUrl = getApiUrl("search/tweets.json");
+		} else {
+			apiUrl = getApiUrl(String.format("statuses/%s_timeline.json", timelineType));
+		}
 		RequestParams params = new RequestParams();
 		params.put("count", Constants.NO_RECORDS);
+		if(query != null) {
+			params.put("q", query);
+		}
+		if(userId > 0) {
+			params.put("user_id", Long.toString(userId));
+		}
 		if(maxId > 0) {
 			params.put("max_id", Long.toString(maxId));
 		}
@@ -28,6 +43,36 @@ public class TwitterClient extends OAuthBaseClient {
 			params.put("since_id", Long.toString(sinceId));
 		}
 		client.get(apiUrl, params, handler);
+	}
+	
+	public void getRelatedUsers(long userId, String relatedUserType, String nextCursor, AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl(String.format("%s/list.json", relatedUserType));
+		RequestParams params = new RequestParams();
+		if(userId > 0) {
+			params.put("user_id", Long.toString(userId));
+		}
+		if (nextCursor != null) {
+			params.put("next_cursor", nextCursor);
+		}
+		client.get(apiUrl, params, handler);
+	}
+	
+	public void favoriteTweet(long tweetId, AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("favorites/create.json");
+		RequestParams params = new RequestParams();
+		if(tweetId > 0) {
+			params.put("id", Long.toString(tweetId));
+		}
+		client.post(apiUrl, params, handler);
+	}
+	
+	public void unFavoriteTweet(long tweetId, AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("favorites/destroy.json");
+		RequestParams params = new RequestParams();
+		if(tweetId > 0) {
+			params.put("id", Long.toString(tweetId));
+		}
+		client.post(apiUrl, params, handler);
 	}
 	
 	public void verifyCredentials(AsyncHttpResponseHandler handler) {

@@ -14,15 +14,19 @@
         android:targetSdkVersion="18" />
 
     <application
+        android:name="com.example.twitterclient.helpers.TwitterClientApp"
         android:allowBackup="true"
+        android:debuggable="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name="com.example.twitterclient.helpers.TwitterClientApp" >
-        
-        <meta-data android:name="AA_DB_NAME" android:value="twitter.db" />
-        <meta-data android:name="AA_DB_VERSION" android:value="7" />
-        
+        android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="twitter.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="8" />
+
         <activity
             android:name="com.example.twitterclient.activities.LoginActivity"
             android:label="" >
@@ -35,11 +39,18 @@
                     android:scheme="oauth" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.twitterclient.activities.TimelineActivity" >
+        <activity android:name="com.example.twitterclient.activities.TimelineActivity"
+            android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
         <activity
             android:name="com.example.twitterclient.activities.ComposeTweetActivity"
@@ -50,6 +61,19 @@
             android:name="com.example.twitterclient.activities.TweetDetailActivity"
             android:label="@string/title_activity_tweet_detail" >
         </activity>
+        <activity
+            android:name="com.example.twitterclient.activities.ProfileActivity"
+            android:label="@string/profile" >
+        </activity>
+        <activity
+            android:name="com.example.twitterclient.activities.ProfileTweetsActivity"
+            android:label="@string/title_activity_profile_tweets" >
+        </activity>
+        <activity
+            android:name="com.example.twitterclient.activities.RelatedUsersActivity"
+            android:label="@string/title_activity_related_users" >
+        </activity>
+        <provider android:name=".helpers.TwitterClientSearchSuggestions" android:authorities="com.example.twitterclient.helpers.TwitterClientSearchSuggestions" />
     </application>
 
 </manifest>

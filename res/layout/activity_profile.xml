@@ -1,0 +1,180 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    tools:context=".activities.ProfileActivity" > 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#8899A6"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        android:paddingTop="15dp" >
+
+        <ImageView
+            android:id="@+id/ivProfile"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/image_view_border"
+            android:contentDescription="@string/ivProfile" />
+
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:gravity="center_horizontal"
+            android:paddingTop="2dp"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvScreenName"
+            style="@style/TextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:paddingBottom="10dp"
+            android:textColor="#ffffff"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#cccccc"
+        android:stretchColumns="*" >
+
+        <TableRow
+            android:id="@+id/tableRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <LinearLayout
+                android:id="@+id/layout_tweets"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="1px"
+                android:layout_marginBottom="1px"
+                android:background="#ffffff"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/tvTweetsCount"
+                    style="@style/TextView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="1"
+                    android:lines="1"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvTweets"
+                    style="@style/TextViewLight"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:lines="1"
+                    android:text="@string/tvTweets"
+                    android:textColor="#808080"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_following"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="1px"
+                android:layout_marginBottom="1px"
+                android:background="#ffffff"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/tvFollowingCount"
+                    style="@style/TextView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="1"
+                    android:lines="1"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvFollowing"
+                    style="@style/TextViewLight"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:lines="1"
+                    android:text="@string/tvFollowing"
+                    android:textColor="#808080"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_followers"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="1px"
+                android:layout_marginBottom="1px"
+                android:background="#ffffff"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/tvFollowersCount"
+                    style="@style/TextView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="1"
+                    android:lines="1"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvFollowers"
+                    style="@style/TextViewLight"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:lines="1"
+                    android:text="@string/tvFollowers"
+                    android:textColor="#808080"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <FrameLayout
+            android:id="@+id/frame_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>

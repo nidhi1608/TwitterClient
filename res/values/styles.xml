@@ -44,5 +44,4 @@
     <style name="TextViewLight" parent="@android:style/Widget.TextView">
     	<item name="android:fontFamily">sans-serif-thin</item>
 	</style>
-    
 </resources>

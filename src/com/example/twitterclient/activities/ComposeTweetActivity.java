@@ -7,8 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,7 +22,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-public class ComposeTweetActivity extends Activity {
+public class ComposeTweetActivity extends AppActivity {
 	ImageView ivUserProfile;
 	TextView tvUserName;
 	TextView tvScreenName;
@@ -30,20 +30,19 @@ public class ComposeTweetActivity extends Activity {
 	EditText etTweetText;
 	private static final String PADDING = "  ";
 	MenuItem miTweet; 
-	Tweet refTweet;
+	Long refTweetId;
 	String screenname;
 	int action;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		refTweet = (Tweet)getIntent().getSerializableExtra("tweet");
+		refTweetId = getIntent().getLongExtra("tweetId", 0);
 		action = getIntent().getIntExtra("action", 0);
 		screenname = getIntent().getStringExtra("screenname");
 		setContentView(R.layout.activity_compose_tweet);
 		setViews();
 		setUserInfo();
-		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 	
 	private void setViews() {
@@ -51,6 +50,7 @@ public class ComposeTweetActivity extends Activity {
 		tvUserName = (TextView) findViewById(R.id.tvUserName);
 		tvScreenName = (TextView) findViewById(R.id.tvScreenName);
 		etTweetText = (EditText) findViewById(R.id.etTweetText);
+		final Tweet refTweet = Tweet.getTweet(refTweetId);
 		if (refTweet != null || screenname != null) {
 			String text = "";
 			if (action == Constants.ACTION_REPLY) {
@@ -86,7 +86,7 @@ public class ComposeTweetActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.compose_tweet, menu);
+		getSupportMenuInflater().inflate(R.menu.compose_tweet, menu);
 		return true;
 	}
 	
@@ -137,19 +137,16 @@ public class ComposeTweetActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
-	    	case android.R.id.home:
-            // app icon in action bar clicked; goto parent activity.
-            this.finish();
-            return true;
 	        case R.id.miTweet:
 	        	String tweetText = etTweetText.getText().toString();
 	            if(tweetText != null && tweetText.length() > 0) {
 	            	TwitterClientApp.getClient().updateStatus(tweetText, new JsonHttpResponseHandler() {
-	            		
 	            		@Override
 	            		public void onSuccess(JSONObject jsonObject) {
 	            			Intent data = new Intent();
-	            			data.putExtra("tweet", Tweet.fromJson(jsonObject));
+	            			final Tweet tweet =Tweet.fromJson(jsonObject);
+	            			tweet.save();
+	            			data.putExtra("tweetId", tweet.tweetId);
 	            			setResult(RESULT_OK, data);
 	            			finish();
 	            		}

@@ -4,9 +4,16 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.WeakHashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,6 +26,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
+import com.example.twitterclient.helpers.Async;
 import com.example.twitterclient.helpers.Utils;
 
 @Table(name = "Tweets")
@@ -58,9 +66,46 @@ public class Tweet extends Model implements Serializable {
 	@Column(name="actualUrl")
 	public String actualUrl;
     
-    public Tweet() {
+    private Tweet() {
 		super();
 	}
+    
+    public void markDirty() {
+    	queueNotifyChange(tweetId);
+    }
+    
+    private static HashMap<Long, Tweet> sTweets = new HashMap<Long, Tweet>();
+    
+    public static interface OnTweetChangedListener {
+    	public void tweetDidChange(final Long tweetId);
+    }
+    
+    private static WeakHashMap<OnTweetChangedListener, Long> sListeners = new WeakHashMap<OnTweetChangedListener, Long>();
+    
+    public static void registerListener(final OnTweetChangedListener listener, final Long tweetId) {
+    	sListeners.put(listener, tweetId);
+    }
+    
+    static Set<Long> sQueueDirty = Collections.synchronizedSet(new HashSet<Long>());
+    private static void queueNotifyChange(final Long tweetId) {
+    	if (sQueueDirty.contains(tweetId)) return;
+    	sQueueDirty.add(tweetId);
+    	Async.dispatchMain(new Runnable() {
+			@Override
+			public void run() {
+				for (final Entry<OnTweetChangedListener, Long> entry : sListeners.entrySet()) {
+					if (entry.getValue().equals(tweetId)) {
+						entry.getKey().tweetDidChange(tweetId);
+					}
+				}
+				sQueueDirty.remove(tweetId);
+			}
+		});
+    }
+    
+    public static Tweet getTweet(final Long tweetId) {
+    	return sTweets.get(tweetId);
+    }
     
 	public Spanned getFormattedDate(String dateFormatString) {
 		String formatString = "<small style=\"color:#888\"><em>%s</em></small>";
@@ -100,6 +145,8 @@ public class Tweet extends Model implements Serializable {
             		}
             	}
             }
+            sTweets.put(tweet.tweetId, tweet);
+            tweet.markDirty();
         } catch (JSONException e) {
             e.printStackTrace(); 
             return null;

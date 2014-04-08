@@ -9,7 +9,6 @@ public class Constants {
     public static final String REST_CONSUMER_KEY = "loADtOB9BeCpg1C17Fdzow";       
     public static final String REST_CONSUMER_SECRET = "56PZSQClrWUPbmcZRAQxRCIFWzbJaxg0b2UKCKPXKA"; 
     public static final String REST_CALLBACK_URL = "oauth://twitterclient";
-    public static final String REST_GET_HOMETIMELINE_URL = "statuses/home_timeline.json"; 
     public static final String REST_VERIFY_CREDENTIALS_URL = "account/verify_credentials.json";
     public static final String REST_UPDATE_STATUS_URL = "statuses/update.json";
     public static final String REST_SHOW_TWEET_URL = "statuses/show.json";

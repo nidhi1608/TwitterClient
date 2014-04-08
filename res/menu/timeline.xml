@@ -1,8 +1,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item android:id="@+id/miSearch"
+	      android:title="@string/miSearchTitle"
+          android:icon="@drawable/ic_action_search"
+          android:showAsAction="ifRoom|collapseActionView"
+          android:actionViewClass="android.widget.SearchView" />
 
 	<item android:id="@+id/miComposetweet"
           android:icon="@drawable/ic_action_composetweet"
           android:title="@string/action_composetweet"
           android:showAsAction="always" />
+	
+	<item android:id="@+id/miProfile"
+	      android:icon="@drawable/ic_action_profile"
+	      android:title="@string/profile"
+	      android:showAsAction="always"/>
 
 </menu>

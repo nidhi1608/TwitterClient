@@ -30,7 +30,7 @@ public class LoginActivity extends OAuthLoginActivity<TwitterClient> {
 			sClass = context.getClass();
 			final Intent intent = new Intent(context, LoginActivity.class);
 			context.startActivityForResult(intent, 0);
-		}
+		} 
 	}
 	
 	public static boolean isAuthenticated(final Context context) {

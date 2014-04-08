@@ -6,10 +6,12 @@ import java.util.Date;
 
 import com.example.twitterclient.models.Tweet;
 
-public class CustomDateComparator implements Comparator<Tweet> {
+public class CustomDateComparator implements Comparator<Long> {
 
 	@Override
-	public int compare(Tweet tweet1, Tweet tweet2) {
+	public int compare(Long tweetId1, Long tweetId2) {
+		final Tweet tweet1 = Tweet.getTweet(tweetId1);
+		final Tweet tweet2 = Tweet.getTweet(tweetId2);
 		Calendar calendar1 = Calendar.getInstance();
 		calendar1.setTime(tweet1.createdDate);
 		Calendar calendar2 = Calendar.getInstance();
