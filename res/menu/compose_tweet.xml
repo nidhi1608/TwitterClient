@@ -1,14 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-	
+
     <item
         android:id="@+id/miCharacterCount"
         android:actionViewClass="android.widget.TextView"
-        android:showAsAction="always" 
+        android:showAsAction="always"
         android:title="@string/miCharacterCount"/>
-    
     <item
         android:id="@+id/miTweet"
         android:showAsAction="always"
-        android:title="@string/miTweet"/>      
+        android:title="@string/miTweet"/>
 
 </menu>

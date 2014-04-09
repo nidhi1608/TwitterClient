@@ -52,7 +52,7 @@ public class TweetDetailActivity extends AppActivity {
 	WebView wvMedia;
 	ScrollView scrollView;
 	OnTweetChangedListener listener;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,7 +68,7 @@ public class TweetDetailActivity extends AppActivity {
 		setViews();
 		fillViews();
 	}
-	
+
 	private void setViews() {
 		scrollView = (ScrollView) findViewById(R.id.scrollViewContainer);
 		ivProfile = (ImageView) findViewById(R.id.ivProfile);
@@ -88,8 +88,8 @@ public class TweetDetailActivity extends AppActivity {
 		tvActionRetweet = (Button) findViewById(R.id.button_retweet);
 		tvActionFavorite = (Button) findViewById(R.id.button_favorite);
 		tvActionShare = (Button) findViewById(R.id.button_share);
-			}
-	
+	}
+
 	private void setBottomBarMetadata() {
 		final Tweet tweet = Tweet.getTweet(mTweetId);
 		getProgressBar().setVisibility(View.INVISIBLE);
@@ -104,7 +104,7 @@ public class TweetDetailActivity extends AppActivity {
 		}
 		if (tweet.favouritesCount <= 0) {
 			tvFavouritesCount.setVisibility(View.GONE);
-			tvFavourites.setVisibility(View.GONE); 
+			tvFavourites.setVisibility(View.GONE);
 		} else {
 			tvFavouritesCount.setVisibility(View.VISIBLE);
 			tvFavourites.setVisibility(View.VISIBLE);
@@ -117,7 +117,7 @@ public class TweetDetailActivity extends AppActivity {
 			vBottomSeparator.setVisibility(View.VISIBLE);
 		}
 	}
-	
+
 	private void fillViews() {
 		final Tweet tweet = Tweet.getTweet(mTweetId);
 		if (tweet.favorited) {
@@ -132,17 +132,19 @@ public class TweetDetailActivity extends AppActivity {
 		tvActionReply.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				TwitterClientApp.composeTweet(TweetDetailActivity.this, mTweetId, Constants.ACTION_REPLY, 0);
+				TwitterClientApp.composeTweet(TweetDetailActivity.this,
+						mTweetId, Constants.ACTION_REPLY, 0);
 			}
 		});
 		tvActionRetweet.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				TwitterClientApp.composeTweet(TweetDetailActivity.this, mTweetId, Constants.ACTION_RETWEET, 0);
+				TwitterClientApp.composeTweet(TweetDetailActivity.this,
+						mTweetId, Constants.ACTION_RETWEET, 0);
 			}
 		});
 		tvActionFavorite.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				if (!tweet.favorited) {
@@ -154,13 +156,15 @@ public class TweetDetailActivity extends AppActivity {
 											.setCompoundDrawablesWithIntrinsicBounds(
 													R.drawable.ic_favorite_yellow,
 													0, 0, 0);
-									tvActionFavorite.setTextColor(Color.parseColor("#efe836"));
+									tvActionFavorite.setTextColor(Color
+											.parseColor("#efe836"));
 									tweet.favorited = true;
-									
+
 									tweet.favouritesCount = tweet.favouritesCount + 1;
 									tvFavouritesCount.setText(" "
 											+ tweet.favouritesCount);
-									tvFavouritesCount.setVisibility(View.VISIBLE);
+									tvFavouritesCount
+											.setVisibility(View.VISIBLE);
 									tvFavourites.setVisibility(View.VISIBLE);
 									tweet.markDirty();
 								}
@@ -169,11 +173,13 @@ public class TweetDetailActivity extends AppActivity {
 								public void onFailure(Throwable e) {
 									e.printStackTrace();
 								}
-								
+
 								@Override
 								protected void handleFailureMessage(
 										Throwable arg0, String arg1) {
-									Toast.makeText(TweetDetailActivity.this, arg0.toString(), Toast.LENGTH_LONG).show();
+									Toast.makeText(TweetDetailActivity.this,
+											arg0.toString(), Toast.LENGTH_LONG)
+											.show();
 								}
 							});
 				} else {
@@ -183,8 +189,8 @@ public class TweetDetailActivity extends AppActivity {
 								public void onSuccess(JSONObject json) {
 									tvActionFavorite
 											.setCompoundDrawablesWithIntrinsicBounds(
-													R.drawable.ic_favorite,
-													0, 0, 0);
+													R.drawable.ic_favorite, 0,
+													0, 0);
 									tweet.favorited = false;
 									tweet.favouritesCount = tweet.favouritesCount - 1;
 									if (tweet.favouritesCount > 0) {
@@ -192,8 +198,9 @@ public class TweetDetailActivity extends AppActivity {
 												+ tweet.favouritesCount);
 									} else {
 										tvFavouritesCount.setText("");
-										tvFavouritesCount.setVisibility(View.GONE);
-										tvFavourites.setVisibility(View.GONE); 
+										tvFavouritesCount
+												.setVisibility(View.GONE);
+										tvFavourites.setVisibility(View.GONE);
 									}
 									tweet.markDirty();
 								}
@@ -202,39 +209,47 @@ public class TweetDetailActivity extends AppActivity {
 								public void onFailure(Throwable e) {
 									e.printStackTrace();
 								}
-								
+
 								@Override
 								protected void handleFailureMessage(
 										Throwable arg0, String arg1) {
-									Toast.makeText(TweetDetailActivity.this, arg0.toString(), Toast.LENGTH_LONG).show();
+									Toast.makeText(TweetDetailActivity.this,
+											arg0.toString(), Toast.LENGTH_LONG)
+											.show();
 								}
 							});
-				}				
+				}
 			}
 		});
-		tvActionShare.setOnClickListener(new OnClickListener() {			
+		tvActionShare.setOnClickListener(new OnClickListener() {
 			@Override
-			public void onClick(View v) {	
+			public void onClick(View v) {
 				final User user = User.getUser(tweet.userId);
-				SimpleDateFormat formatTime = new SimpleDateFormat("h:mm a", Locale.US);
+				SimpleDateFormat formatTime = new SimpleDateFormat("h:mm a",
+						Locale.US);
 				String strTime = formatTime.format(tweet.createdDate);
-				SimpleDateFormat formatDate = new SimpleDateFormat("dd MMM yy", Locale.US);
-				String strDate = formatDate.format(tweet.createdDate);		
+				SimpleDateFormat formatDate = new SimpleDateFormat("dd MMM yy",
+						Locale.US);
+				String strDate = formatDate.format(tweet.createdDate);
 				Intent shareIntent = new Intent(Intent.ACTION_SEND);
 				shareIntent.setType("text/plain");
-				String strShareText = user.name + " (@" + user.screenName + ") tweeted at " + strTime + " on " + strDate + ": " + tweet.body;   
+				String strShareText = user.name + " (@" + user.screenName
+						+ ") tweeted at " + strTime + " on " + strDate + ": "
+						+ tweet.body;
 				shareIntent.putExtra(Intent.EXTRA_TEXT, strShareText);
 				startActivity(Intent.createChooser(shareIntent, "Share"));
 			}
 		});
 		setBottomBarMetadata();
 		ImageLoader mImageLoader = ImageLoader.getInstance();
-		mImageLoader.init(ImageLoaderConfiguration.createDefault(TweetDetailActivity.this));
+		mImageLoader.init(ImageLoaderConfiguration
+				.createDefault(TweetDetailActivity.this));
 		final User user = User.getUser(tweet.userId);
 		mImageLoader.displayImage(user.profileImageUrl, ivProfile);
 		if (tweet.retweetedUserId != 0) {
 			btTweetStatus.setVisibility(View.VISIBLE);
-			btTweetStatus.setText(" " + User.getUser(tweet.retweetedUserId).name + " retweeted");
+			btTweetStatus.setText(" "
+					+ User.getUser(tweet.retweetedUserId).name + " retweeted");
 		} else {
 			btTweetStatus.setVisibility(View.GONE);
 		}
@@ -245,22 +260,25 @@ public class TweetDetailActivity extends AppActivity {
 			body = body.replace(tweet.actualUrl, tweet.displayUrl);
 		}
 		tvBody.setText(body);
-		TweetsAdapter.setLinks(tvBody, tvBody.getText().toString(), tweet.tweetId, true, new Async.Block<String, Long>() {
-			@Override
-			public void call(final String text, final Long tweetId) {
-				TweetsAdapter.handleLinkClicked(TweetDetailActivity.this, text, tweetId);
-			}
-		});
+		TweetsAdapter.setLinks(tvBody, tvBody.getText().toString(),
+				tweet.tweetId, true, new Async.Block<String, Long>() {
+					@Override
+					public void call(final String text, final Long tweetId) {
+						TweetsAdapter.handleLinkClicked(
+								TweetDetailActivity.this, text, tweetId);
+					}
+				});
 		SimpleDateFormat formatTime = new SimpleDateFormat("h:mm a", Locale.US);
 		String strTime = formatTime.format(tweet.createdDate);
-		SimpleDateFormat formatDate = new SimpleDateFormat("dd MMM yy", Locale.US);
-		String strDate = formatDate.format(tweet.createdDate);		
-		tvDate.setText(strTime + " • " + strDate);		
-		if(tweet.actualUrl != null && tweet.actualUrl.length() > 0) {
+		SimpleDateFormat formatDate = new SimpleDateFormat("dd MMM yy",
+				Locale.US);
+		String strDate = formatDate.format(tweet.createdDate);
+		tvDate.setText(strTime + " • " + strDate);
+		if (tweet.actualUrl != null && tweet.actualUrl.length() > 0) {
 			wvMedia.setVisibility(View.VISIBLE);
 			wvMedia.getSettings().setJavaScriptEnabled(true);
 			wvMedia.loadUrl(tweet.actualUrl);
-			wvMedia.setWebViewClient(new WebViewClient(){
+			wvMedia.setWebViewClient(new WebViewClient() {
 				@Override
 				public boolean shouldOverrideUrlLoading(WebView view, String url) {
 					view.loadUrl(url);

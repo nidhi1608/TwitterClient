@@ -3,7 +3,6 @@ package com.example.twitterclient.activities;
 import java.text.DecimalFormat;
 import java.util.Locale;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import com.example.twitterclient.R;
 import com.example.twitterclient.fragments.TweetsListFragment;
-import com.example.twitterclient.helpers.CustomDateComparator;
 import com.example.twitterclient.helpers.TwitterClientApp;
 import com.example.twitterclient.helpers.Utils.RelatedUserType;
 import com.example.twitterclient.helpers.Utils.TimelineType;
@@ -33,7 +31,7 @@ public class ProfileActivity extends AppActivity {
 	private LinearLayout layoutFollowing;
 	private LinearLayout layoutFollowers;
 	private User user;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,7 +39,7 @@ public class ProfileActivity extends AppActivity {
 		setViews();
 		fillViews();
 	}
-	
+
 	private void setViews() {
 		ivProfile = (ImageView) findViewById(R.id.ivProfile);
 		tvName = (TextView) findViewById(R.id.tvName);
@@ -60,41 +58,49 @@ public class ProfileActivity extends AppActivity {
 		user = User.getUser(userId);
 		setTitle(R.string.profile);
 
-		ImageLoader.getInstance().displayImage(user.profileImageUrl, ivProfile);		
+		ImageLoader.getInstance().displayImage(user.profileImageUrl, ivProfile);
 		tvName.setText(user.name);
-		tvScreenname.setText("@"+user.screenName);
+		tvScreenname.setText("@" + user.screenName);
 		tvTweetsCount.setText(formatNumber(Integer.toString(user.numTweets)));
-		tvFollowingCount.setText(formatNumber(Integer.toString(user.friendsCount)));
-		tvFollowersCount.setText(formatNumber(Integer.toString(user.followersCount)));
-		
-		TweetsListFragment fragmentTweets = TweetsListFragment.newInstance(TimelineType.USER, userId, null);
+		tvFollowingCount.setText(formatNumber(Integer
+				.toString(user.friendsCount)));
+		tvFollowersCount.setText(formatNumber(Integer
+				.toString(user.followersCount)));
+
+		TweetsListFragment fragmentTweets = TweetsListFragment.newInstance(
+				TimelineType.USER, userId, null);
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		ft.replace(R.id.frame_container, fragmentTweets);
-		ft.commit();		
-		
+		ft.commit();
+
 		setTweetsListener(layoutTweets, user.userId);
-		setRelatedUserListener(layoutFollowing, user.userId, RelatedUserType.FRIENDS);
-		setRelatedUserListener(layoutFollowers, user.userId, RelatedUserType.FOLLOWERS);
+		setRelatedUserListener(layoutFollowing, user.userId,
+				RelatedUserType.FRIENDS);
+		setRelatedUserListener(layoutFollowers, user.userId,
+				RelatedUserType.FOLLOWERS);
 	}
-	
+
 	private void setTweetsListener(final View view, final Long userId) {
 		view.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				TwitterClientApp.showUserTweets(ProfileActivity.this, userId, null);
-			}
-		}); 
-	}
-	
-	private void setRelatedUserListener(final View view, final Long userId, final RelatedUserType relatedUserType) {
-		view.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				TwitterClientApp.showRelatedUsers(ProfileActivity.this, userId, relatedUserType);
+				TwitterClientApp.showTweets(ProfileActivity.this, userId,
+						null);
 			}
 		});
 	}
-	
+
+	private void setRelatedUserListener(final View view, final Long userId,
+			final RelatedUserType relatedUserType) {
+		view.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				TwitterClientApp.showRelatedUsers(ProfileActivity.this, userId,
+						relatedUserType);
+			}
+		});
+	}
+
 	private String formatNumber(String num) {
 		DecimalFormat formatter = new DecimalFormat("#,###");
 		Long longNum = Long.parseLong(num);
@@ -102,7 +108,8 @@ public class ProfileActivity extends AppActivity {
 			return formatter.format(longNum);
 		}
 		int exp = (int) (Math.log(longNum) / Math.log(1000));
-		
-		return String.format(Locale.US, "%.1f %c", longNum / Math.pow(1000, exp), "kMGTPE".charAt(exp-1));
+
+		return String.format(Locale.US, "%.1f %c",
+				longNum / Math.pow(1000, exp), "kMGTPE".charAt(exp - 1));
 	}
 }

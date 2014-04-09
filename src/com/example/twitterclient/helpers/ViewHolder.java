@@ -18,13 +18,14 @@ public class ViewHolder {
 		public Button btRetweet;
 		public Button btFav;
 		private OnTweetChangedListener listener;
-		
-		public void registerListenerForTweetId(final Long tweetId, final OnTweetChangedListener listener) {
+
+		public void registerListenerForTweetId(final Long tweetId,
+				final OnTweetChangedListener listener) {
 			this.listener = listener;
 			Tweet.registerListener(listener, tweetId);
 		}
 	}
-	
+
 	public static class UserItem {
 		public ImageView ivProfile;
 		public TextView tvName;

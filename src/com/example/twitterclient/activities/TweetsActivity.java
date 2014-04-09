@@ -7,7 +7,7 @@ import com.example.twitterclient.R;
 import com.example.twitterclient.fragments.TweetsListFragment;
 import com.example.twitterclient.helpers.Utils.TimelineType;
 
-public class ProfileTweetsActivity extends AppActivity {
+public class TweetsActivity extends AppActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -19,9 +19,10 @@ public class ProfileTweetsActivity extends AppActivity {
 		if (query != null) {
 			setTitle(query);
 		}
-		final TweetsListFragment fragmentTweets = TweetsListFragment.newInstance(TimelineType.USER, userId, query);
+		final TweetsListFragment fragmentTweets = TweetsListFragment
+				.newInstance(TimelineType.USER, userId, query);
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		ft.replace(R.id.frame_container, fragmentTweets);
-		ft.commit();		
+		ft.commit();
 	}
 }

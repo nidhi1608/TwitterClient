@@ -77,8 +77,7 @@ public class TweetsAdapter extends ArrayAdapter<Long> {
 		calendar.setTime(date);
 		final long year = calendar.get(Calendar.YEAR);
 		final Locale locale = Locale.getDefault();
-		final String day = calendar.getDisplayName(Calendar.DAY_OF_MONTH,
-				Calendar.SHORT, locale);
+		final String day = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
 		final String month = calendar.getDisplayName(Calendar.MONTH,
 				Calendar.SHORT, locale);
 		if (year == currentYear) {
@@ -89,8 +88,9 @@ public class TweetsAdapter extends ArrayAdapter<Long> {
 			return day + " " + month + " " + yearString;
 		}
 	}
-	
-	private OnClickListener populate(final ViewHolder.TweetItem holder, final long tweetId) {
+
+	private OnClickListener populate(final ViewHolder.TweetItem holder,
+			final long tweetId) {
 		final Tweet tweet = Tweet.getTweet(tweetId);
 		if (tweet.retweetedUserId != 0) {
 			holder.btTweetStatus.setVisibility(View.VISIBLE);
@@ -116,8 +116,8 @@ public class TweetsAdapter extends ArrayAdapter<Long> {
 			body = body.replace(tweet.actualUrl, tweet.displayUrl);
 		}
 		holder.tvBody.setText(body);
-		setLinks(holder.tvBody, holder.tvBody.getText().toString(), tweet.tweetId,
-				false, new Async.Block<String, Long>() {
+		setLinks(holder.tvBody, holder.tvBody.getText().toString(),
+				tweet.tweetId, false, new Async.Block<String, Long>() {
 					@Override
 					public void call(final String text, final Long tweetId) {
 						if (handleLinkClicked(getContext(), text, tweetId)) {
@@ -186,7 +186,8 @@ public class TweetsAdapter extends ArrayAdapter<Long> {
 											.setCompoundDrawablesWithIntrinsicBounds(
 													R.drawable.ic_status_favorite_yellow,
 													0, 0, 0);
-									holder.btFav.setTextColor(Color.parseColor("#efe836"));
+									holder.btFav.setTextColor(Color
+											.parseColor("#efe836"));
 									tweet.favorited = true;
 									tweet.favouritesCount = tweet.favouritesCount + 1;
 									holder.btFav.setText(" "
@@ -197,11 +198,13 @@ public class TweetsAdapter extends ArrayAdapter<Long> {
 								public void onFailure(Throwable e) {
 									e.printStackTrace();
 								}
-								
+
 								@Override
 								protected void handleFailureMessage(
 										Throwable arg0, String arg1) {
-									Toast.makeText(getContext(), arg0.toString(), Toast.LENGTH_LONG).show();
+									Toast.makeText(getContext(),
+											arg0.toString(), Toast.LENGTH_LONG)
+											.show();
 								}
 							});
 				} else {
@@ -213,7 +216,8 @@ public class TweetsAdapter extends ArrayAdapter<Long> {
 											.setCompoundDrawablesWithIntrinsicBounds(
 													R.drawable.ic_status_favorite,
 													0, 0, 0);
-									holder.btFav.setTextColor(Color.parseColor("#777777"));
+									holder.btFav.setTextColor(Color
+											.parseColor("#777777"));
 									tweet.favorited = false;
 									tweet.favouritesCount = tweet.favouritesCount - 1;
 									if (tweet.favouritesCount > 0) {
@@ -228,11 +232,13 @@ public class TweetsAdapter extends ArrayAdapter<Long> {
 								public void onFailure(Throwable e) {
 									e.printStackTrace();
 								}
-								
+
 								@Override
 								protected void handleFailureMessage(
 										Throwable arg0, String arg1) {
-									Toast.makeText(getContext(), arg0.toString(), Toast.LENGTH_LONG).show();
+									Toast.makeText(getContext(),
+											arg0.toString(), Toast.LENGTH_LONG)
+											.show();
 								}
 							});
 				}
@@ -275,12 +281,13 @@ public class TweetsAdapter extends ArrayAdapter<Long> {
 		final Long tweetId = getItem(position);
 		final OnClickListener listener = populate(holder, tweetId);
 		view.setOnClickListener(listener);
-		holder.registerListenerForTweetId(tweetId, new OnTweetChangedListener() {
-			@Override
-			public void tweetDidChange(final Long tweetId) {
-				populate(holder, tweetId);
-			}
-		});
+		holder.registerListenerForTweetId(tweetId,
+				new OnTweetChangedListener() {
+					@Override
+					public void tweetDidChange(final Long tweetId) {
+						populate(holder, tweetId);
+					}
+				});
 		return view;
 	}
 

@@ -16,7 +16,8 @@ public class CustomDateComparator implements Comparator<Long> {
 		calendar1.setTime(tweet1.createdDate);
 		Calendar calendar2 = Calendar.getInstance();
 		calendar2.setTime(tweet2.createdDate);
-		return new Date(calendar2.getTimeInMillis()).compareTo(new Date(calendar1.getTimeInMillis()));
+		return new Date(calendar2.getTimeInMillis()).compareTo(new Date(
+				calendar1.getTimeInMillis()));
 	}
 
 }

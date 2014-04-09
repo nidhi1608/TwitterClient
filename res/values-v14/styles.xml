@@ -6,26 +6,44 @@
         res/values-v11/styles.xml on API 14+ devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+
         <!-- API 14 theme customizations can go here. -->
         <item name="android:actionBarStyle">@style/ActionBar</item>
+        <item name="actionBarStyle">@style/ActionBar</item>
+        <item name="android:actionBarTabTextStyle">@style/ActionBarTabTextStyle</item>
         <item name="actionBarTabTextStyle">@style/ActionBarTabTextStyle</item>
-    	<item name="android:actionBarTabTextStyle">@style/ActionBarTabTextStyle</item>
-    	<item name="android:actionBarTabBarStyle">@style/WActionBarTabStyle</item>
+        <item name="android:actionBarTabBarStyle">@style/ActionBarTabStyle</item>
+        <item name="actionBarTabBarStyle">@style/ActionBarTabStyle</item>
+        <item name="android:actionBarTabStyle">@style/Widget.Sherlock.Light.ActionBar.Tab</item>
+        <item name="actionBarTabStyle">@style/Widget.Sherlock.Light.ActionBar.Tab</item>
     </style>
-    
-    <style name="ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">     
-        <item name="android:background">#55acee</item>
+
+    <style name="ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">#65acee</item>
+        <item name="android:backgroundStacked">#65acee</item>
+        <item name="backgroundStacked">#65acee</item>
     </style>
-    
-    <style name="ActionBarTabTextStyle" parent="Widget.Sherlock.ActionBar.TabText" >
-    	<item name="android:textColor">@color/actionbar_color_selector</item>
-    	<item name="android:fontFamily">sans-serif-light</item>
-    	<item name="android:textSize">16sp</item>
-    	<item name ="android:textAllCaps">false</item>
-	</style>
-	
-    <style name="WActionBarTabStyle" parent="Widget.Sherlock.Light.ActionBar.TabView">
+
+    <style name="ActionBarTabTextStyle" parent="Widget.Sherlock.ActionBar.TabText">
+        <item name="android:textColor">@color/actionbar_color_selector</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:paddingLeft">60dp</item>
+    </style>
+
+    <style name="ActionBarTabStyle" parent="Widget.Sherlock.Light.ActionBar.TabView">
         <item name="android:background">#ffffff</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:minWidth">0dp</item>
     </style>
-    
+
+    <style name="Widget.Sherlock.Light.ActionBar.Tab">
+        <item name="android:background">@drawable/tab_bar_background</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+    </style>
+
 </resources>

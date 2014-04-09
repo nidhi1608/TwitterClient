@@ -10,7 +10,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,21 +43,22 @@ public class TweetsListFragment extends SherlockFragment implements
 	private Utils.TimelineType mTimelineType;
 	private Long mUserId;
 	private String mQuery;
-	
-	public static TweetsListFragment newInstance(Utils.TimelineType timelineType, Long userId, String query) {
+
+	public static TweetsListFragment newInstance(
+			Utils.TimelineType timelineType, Long userId, String query) {
 		TweetsListFragment fragmentTweets = new TweetsListFragment();
 		Bundle args = new Bundle();
 		args.putSerializable("timelineType", timelineType);
-		if(userId != null) {
+		if (userId != null) {
 			args.putLong("userId", userId);
 		}
-		if(query != null && query.length() > 0) {
+		if (query != null && query.length() > 0) {
 			args.putString("query", query);
 		}
 		fragmentTweets.setArguments(args);
 		return fragmentTweets;
-	}	
-	
+	}
+
 	public TweetsAdapter getAdapter() {
 		return tweetsAdapter;
 	}
@@ -68,7 +68,7 @@ public class TweetsListFragment extends SherlockFragment implements
 		mActivity = (AppActivity) activity;
 		super.onAttach(activity);
 	}
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -128,38 +128,47 @@ public class TweetsListFragment extends SherlockFragment implements
 		loadTweets(maxId, 0);
 	}
 
-	public void loadTweets(final long maxId, final long sinceId) {	
-		getTimeline(mQuery, mUserId, mTimelineType.name().toLowerCase(Locale.US), maxId, sinceId);	
+	public void loadTweets(final long maxId, final long sinceId) {
+		getTimeline(mQuery, mUserId, mTimelineType.name()
+				.toLowerCase(Locale.US), maxId, sinceId);
 	}
 
-	private void getTimeline(final String query, final long userId, final String timelineType, final long maxId, final long sinceId) {
+	private void getTimeline(final String query, final long userId,
+			final String timelineType, final long maxId, final long sinceId) {
 		mActivity.getProgressBar().setVisibility(View.VISIBLE);
 		LoginActivity.loginOrSignupWithCompletion(getActivity(),
-				new Runnable() { 
+				new Runnable() {
 					@Override
 					public void run() {
 						if (!LoginActivity.isAuthenticated(getActivity()))
 							return;
-						TwitterClientApp.getClient().getTimeline(query, userId, timelineType, maxId, sinceId, new JsonHttpResponseHandler() {				
+						TwitterClientApp.getClient().getTimeline(query, userId,
+								timelineType, maxId, sinceId,
+								new JsonHttpResponseHandler() {
 									@Override
-									public void onSuccess(final JSONArray jsonTweets) {
+									public void onSuccess(
+											final JSONArray jsonTweets) {
 										Async.dispatch(new Runnable() {
 											@Override
 											public void run() {
-												final ArrayList<Tweet> tweets = Tweet.fromJson(jsonTweets);
+												final ArrayList<Tweet> tweets = Tweet
+														.fromJson(jsonTweets);
 												final ArrayList<Long> tweetIds = new ArrayList<Long>();
 												for (final Tweet tweet : tweets) {
 													tweetIds.add(tweet.tweetId);
 												}
-												ActiveAndroid.beginTransaction();
+												ActiveAndroid
+														.beginTransaction();
 												try {
 													for (final Tweet tweet : tweets) {
 														tweet.save();
 													}
 													User.saveAll();
-													ActiveAndroid.setTransactionSuccessful();
+													ActiveAndroid
+															.setTransactionSuccessful();
 												} finally {
-													ActiveAndroid.endTransaction();
+													ActiveAndroid
+															.endTransaction();
 												}
 												Async.dispatchMain(new Runnable() {
 													@Override
@@ -169,21 +178,24 @@ public class TweetsListFragment extends SherlockFragment implements
 												});
 											}
 										});
-									} 
-									
+									}
+
 									@Override
 									public void onSuccess(JSONObject arg0) {
 										try {
-											onSuccess(arg0.getJSONArray("statuses"));
+											onSuccess(arg0
+													.getJSONArray("statuses"));
 										} catch (JSONException e) {
 											e.printStackTrace();
 										}
 									}
-									
+
 									@Override
-									protected void handleFailureMessage(Throwable arg0,
-									String arg1) {
-										Toast.makeText(mActivity, arg0.toString(), Toast.LENGTH_LONG).show();
+									protected void handleFailureMessage(
+											Throwable arg0, String arg1) {
+										Toast.makeText(mActivity,
+												arg0.toString(),
+												Toast.LENGTH_LONG).show();
 									}
 
 									@Override

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical"
-    tools:context=".activities.ProfileActivity" > 
+    tools:context=".activities.ProfileActivity" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -62,8 +62,8 @@
                 android:id="@+id/layout_tweets"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="1px"
                 android:layout_marginBottom="1px"
+                android:layout_marginRight="1px"
                 android:background="#ffffff"
                 android:orientation="vertical" >
 
@@ -97,8 +97,8 @@
                 android:id="@+id/layout_following"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="1px"
                 android:layout_marginBottom="1px"
+                android:layout_marginRight="1px"
                 android:background="#ffffff"
                 android:orientation="vertical" >
 
@@ -132,8 +132,8 @@
                 android:id="@+id/layout_followers"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="1px"
                 android:layout_marginBottom="1px"
+                android:layout_marginRight="1px"
                 android:background="#ffffff"
                 android:orientation="vertical" >
 
