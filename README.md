@@ -56,6 +56,13 @@ Screenshots:
 
 
 
+Total time spent: 25 Hours
+
+
+
+
+
+
 
 TwitterClient
 =============
